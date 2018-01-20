@@ -25,10 +25,10 @@ src_install() {
 }
 
 pkg_postinst() {
-	ewarn "You have to configure a shortcut (ex: Super + o) to use this script:"
+  ewarn "You have to configure a shortcut (ex: Super + o) to use this script:"
   ewarn "1. settings manager -> keyboard -> application shortcuts"
   ewarn "2. Click Add"
-  ewarn "3. Click Open and direct it to your script"
+  ewarn "3. Type: \"move-to-next-monitor\""
   ewarn "4. Assign a keyboard shortcut to it and wallah!"
   ewarn "Source: https://unix.stackexchange.com/questions/48456/xfce-send-window-to-other-monitor-on-keystroke"
 	echo
