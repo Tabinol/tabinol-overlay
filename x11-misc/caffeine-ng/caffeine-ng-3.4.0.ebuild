@@ -21,7 +21,7 @@ dev-python/pygobject[${PYTHON_USEDEP}]
 	dev-python/pyxdg[${PYTHON_USEDEP}]
   dev-python/pydbus[${PYTHON_USEDEP}]
   dev-python/docopt[${PYTHON_USEDEP}]
-  dev-python/ewmh
+  dev-python/ewmh[${PYTHON_USEDEP}]
   x11-libs/libnotify
   dev-python/setproctitle[${PYTHON_USEDEP}]
   dev-python/setuptools[${PYTHON_USEDEP}]
