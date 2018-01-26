@@ -20,7 +20,7 @@ fi
 if [ -e "${HOME}/.minecraft/launcher.jar" ] && [ -z "$MC_FORCE_UPDATE" ]; then
 	exec java -jar "${HOME}/.minecraft/launcher.jar" $@
 else
-	exec java -jar /usr/share/minecraft/Minecraft.jar $@
+	exec java -jar /usr/share/minecraft/lib/minecraft.jar $@
 fi
 
 unset MC_FORCE_UPDATE
