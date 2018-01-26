@@ -8,7 +8,9 @@ inherit games java-utils-2
 
 DESCRIPTION="An open-world game whose gameplay revolves around breaking and placing blocks"
 HOMEPAGE="http://www.minecraft.net"
-SRC_URI="https://s3.amazonaws.com/Minecraft.Download/launcher/Minecraft.jar -> ${PN}.jar"
+SRC_URI="
+  https://s3.amazonaws.com/Minecraft.Download/launcher/Minecraft.jar -> ${PN}.jar
+  https://github.com/Tabinol/tabinol-overlay/raw/master/${CATEGORY}/${PN}/files/minecraft.png -> ${PN}.png"
 LICENSE="Minecraft"
 SLOT="0"
 KEYWORDS="~amd64"
@@ -28,6 +30,10 @@ pkg_setup() {
 
 src_unpack() {
 	true
+}
+
+src_prepare() {
+	sed "s:@GENTOO_PORTAGE_EPREFIX@:${EPREFIX}:g" "${FILESDIR}/${PN}-gentoo" > "${PN}-gentoo" || die
 }
 
 src_install() {
