@@ -4,7 +4,7 @@
 
 EAPI=5
 
-inherit games
+inherit games java-utils-2
 
 DESCRIPTION="An open-world game whose gameplay revolves around breaking and placing blocks"
 HOMEPAGE="http://www.minecraft.net"
