@@ -4,13 +4,14 @@
 
 EAPI=5
 
-inherit games java-utils-2
+inherit games
 
 DESCRIPTION="An open-world game whose gameplay revolves around breaking and placing blocks"
 HOMEPAGE="http://www.minecraft.net"
 SRC_URI="
   https://s3.amazonaws.com/Minecraft.Download/launcher/Minecraft.jar -> ${PN}.jar
-  https://github.com/Tabinol/tabinol-overlay/raw/master/${CATEGORY}/${PN}/files/minecraft.png -> ${PN}.png"
+  https://github.com/Tabinol/tabinol-overlay/raw/master/${CATEGORY}/${PN}/files/minecraft.png -> ${PN}.png
+	https://github.com/Tabinol/tabinol-overlay/raw/master/${CATEGORY}/${PN}/files/minecraft -> ${PN}"
 LICENSE="Minecraft"
 SLOT="0"
 KEYWORDS="~amd64"
@@ -32,10 +33,13 @@ src_unpack() {
 	true
 }
 
+src_prepare() {
+	sed "s:@GENTOO_PORTAGE_EPREFIX@:${EPREFIX}:g" "${FILESDIR}/${PN}" > "${PN}" || die
+}
+
 src_install() {
 	java-pkg_dojar "${DISTDIR}/${PN}.jar"
-	java-pkg_dolauncher "${PN}" -into "${GAMES_PREFIX}" --main net.minecraft.bootstrap.Bootstrap
-
+  dogamesbin "${DISTDIR}/${PN}"
 	doicon "${DISTDIR}/${PN}.png"
 	make_desktop_entry "${PN}" "Minecraft"
 
