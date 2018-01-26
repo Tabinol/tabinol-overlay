@@ -32,10 +32,6 @@ src_unpack() {
 	true
 }
 
-src_prepare() {
-	sed "s:@GENTOO_PORTAGE_EPREFIX@:${EPREFIX}:g" "${FILESDIR}/${PN}-gentoo" > "${PN}-gentoo" || die
-}
-
 src_install() {
 	java-pkg_dojar "${DISTDIR}/${PN}.jar"
 	java-pkg_dolauncher "${PN}" -into "${GAMES_PREFIX}" --main net.minecraft.bootstrap.Bootstrap
