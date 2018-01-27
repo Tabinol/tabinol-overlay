@@ -9,13 +9,15 @@ inherit games java-utils-2
 DESCRIPTION="An open-world game whose gameplay revolves around breaking and placing blocks"
 HOMEPAGE="http://www.minecraft.net"
 SRC_URI="
-  https://s3.amazonaws.com/Minecraft.Download/launcher/Minecraft.jar -> ${PN}.jar
-  https://github.com/Tabinol/tabinol-overlay/raw/master/${CATEGORY}/${PN}/files/minecraft.png -> ${PN}.png
-	https://github.com/Tabinol/tabinol-overlay/raw/master/${CATEGORY}/${PN}/files/minecraft -> ${PN}"
+  https://github.com/Tabinol/gentoo-minecraft/archive/${PV}.tar.gz -> ${P}.tar.gz
+  https://s3.amazonaws.com/Minecraft.Download/launcher/Minecraft.jar -> ${PN}.jar"
+	
 LICENSE="Minecraft"
 SLOT="0"
 KEYWORDS="~amd64"
 RESTRICT="mirror"
+
+S="${WORKDIR}/gentoo-minecraft-${PV}"
 
 RDEPEND=">=virtual/jre-1.8.0
   >=x11-apps/xrandr-1.4.3
@@ -23,24 +25,22 @@ RDEPEND=">=virtual/jre-1.8.0
 
 DEPEND=""
 
-S="${WORKDIR}"
-
 pkg_setup() {
 	games_pkg_setup
 }
 
 src_unpack() {
-	true
+	unpack ${P}.tar.gz
 }
 
 src_prepare() {
-	sed "s:@GENTOO_PORTAGE_EPREFIX@:${EPREFIX}:g" "${FILESDIR}/${PN}" > "${PN}" || die
+	sed --in-place "s:@GENTOO_PORTAGE_EPREFIX@:${EPREFIX}:g" "${PN}" || die
 }
 
 src_install() {
 	java-pkg_dojar "${DISTDIR}/${PN}.jar"
-  dogamesbin "${DISTDIR}/${PN}"
-	doicon "${DISTDIR}/${PN}.png"
+  dogamesbin "${PN}"
+	doicon "${PN}.png"
 	make_desktop_entry "${PN}" "Minecraft"
 
 	prepgamesdirs
