@@ -3,6 +3,8 @@
 
 EAPI=6
 
+S=/var/tmp/portage/x11-themes/theme-obsidian2-${PV}/work/theme-obsidian-2-${PV}
+
 DESCRIPTION="Gnome theme, based upon Adwaita-Maia dark skin"
 HOMEPAGE="https://github.com/madmaxms/theme-obsidian-2"
 SRC_URI="https://github.com/madmaxms/theme-obsidian-2/archive/v${PV}.tar.gz -> ${P}.tar.gz"
