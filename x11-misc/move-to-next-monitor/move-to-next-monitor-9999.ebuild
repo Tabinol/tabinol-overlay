@@ -17,6 +17,7 @@ RDEPEND="
   x11-misc/xdotool
   x11-misc/wmctrl
   x11-apps/xdpyinfo
+  x11-apps/xwininfo
 "
 DEPEND=""
 
