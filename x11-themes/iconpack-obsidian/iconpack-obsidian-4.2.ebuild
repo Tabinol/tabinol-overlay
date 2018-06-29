@@ -19,6 +19,6 @@ RDEPEND="
 DEPEND=""
 
 src_install() {
-	insinto /usr/share/themes
+	insinto /usr/share/icons
 	doins -r Obsidian*
 }
