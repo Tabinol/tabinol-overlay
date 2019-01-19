@@ -1,16 +1,17 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=7
 
-inherit games java-utils-2
+MY_PN=${PN/-bin/}
+inherit desktop
 
 DESCRIPTION="An open-world game whose gameplay revolves around breaking and placing blocks"
 HOMEPAGE="http://www.minecraft.net"
 SRC_URI="
-  https://github.com/Tabinol/gentoo-minecraft/archive/${PV}.tar.gz -> ${P}.tar.gz
-  https://s3.amazonaws.com/Minecraft.Download/launcher/Minecraft.jar -> ${PN}.jar"
+  https://github.com/Tabinol/gentoo-minecraft/archive/${PV}.tar.gz -> ${P}-sh.tar.gz
+  https://launcher.mojang.com/download/Minecraft.tar.gz -> ${P}.tar.gz"
 	
 LICENSE="Minecraft"
 SLOT="0"
@@ -25,25 +26,23 @@ RDEPEND=">=virtual/jre-1.8.0
 
 DEPEND=""
 
-pkg_setup() {
-	games_pkg_setup
-}
-
 src_unpack() {
+	unpack ${P}-sh.tar.gz
 	unpack ${P}.tar.gz
 }
 
-src_prepare() {
-	sed --in-place "s:@GENTOO_PORTAGE_EPREFIX@:${EPREFIX}:g" "${PN}" || die
-}
-
 src_install() {
-	java-pkg_dojar "${DISTDIR}/${PN}.jar"
-  dogamesbin "${PN}"
-	doicon "${PN}.png"
-	make_desktop_entry "${PN}" "Minecraft"
-
-	prepgamesdirs
+	pushd ../minecraft-launcher-${PV}
+	insinto /opt/${MY_PN}
+	doins -r .
+	fperms +x /opt/${MY_PN}/chrome-sandbox
+	fperms +x /opt/${MY_PN}/launcher
+	fperms +x /opt/${MY_PN}/libcef.so
+	fperms +x /opt/${MY_PN}/minecraft-launcher.sh
+	popd
+  dobin "${MY_PN}"
+	doicon "${MY_PN}.png"
+	make_desktop_entry "${MY_PN}" "Minecraft" "minecraft"
 }
 
 pkg_postinst() {
@@ -51,7 +50,4 @@ pkg_postinst() {
 	ewarn "in Minecraft launcher configuration which is no longer installed."
 	ewarn "Every Minecraft versions should work."
 	echo
-
-	games_pkg_postinst
 }
-
