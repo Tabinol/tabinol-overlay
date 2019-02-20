@@ -1,4 +1,4 @@
-# Copyright 1999-2018 Gentoo Foundation
+# Copyright 1999-2019 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -32,13 +32,12 @@ src_unpack() {
 }
 
 src_install() {
-	pushd ../minecraft-launcher-${PV}
+	pushd ../minecraft-launcher
 	insinto /opt/${MY_PN}
 	doins -r .
 	fperms +x /opt/${MY_PN}/chrome-sandbox
-	fperms +x /opt/${MY_PN}/launcher
 	fperms +x /opt/${MY_PN}/libcef.so
-	fperms +x /opt/${MY_PN}/minecraft-launcher.sh
+	fperms +x /opt/${MY_PN}/minecraft-launcher
 	popd
   dobin "${MY_PN}"
 	doicon "${MY_PN}.png"
