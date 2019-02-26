@@ -11,7 +11,7 @@ DESCRIPTION="An open-world game whose gameplay revolves around breaking and plac
 HOMEPAGE="http://www.minecraft.net"
 SRC_URI="
   https://github.com/Tabinol/gentoo-minecraft/archive/${PV}.tar.gz -> ${P}-sh.tar.gz
-  https://launcher.mojang.com/download/Minecraft.tar.gz -> ${P}.tar.gz"
+  https://launcher.mojang.com/download/linux/x86_64/minecraft-launcher_${PV}.tar.gz -> ${P}.tar.gz"
 	
 LICENSE="Minecraft"
 SLOT="0"
@@ -42,11 +42,4 @@ src_install() {
   dobin "${MY_PN}"
 	doicon "${MY_PN}.png"
 	make_desktop_entry "${MY_PN}" "Minecraft" "minecraft"
-}
-
-pkg_postinst() {
-	ewarn "if you are doing an update, consider to remove minecraft-gentoo call"
-	ewarn "in Minecraft launcher configuration which is no longer installed."
-	ewarn "Every Minecraft versions should work."
-	echo
 }
